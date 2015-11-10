@@ -1,5 +1,6 @@
 'use strict';
 let express = require('express');
+let app = express();
 
 // Ignore requests for favicons
 app.get('/favicon.ico', function(req, res) {
