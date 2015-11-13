@@ -4,8 +4,22 @@ module.exports = (db) => {
     let express = require('express'),
         router = express.Router();
     
-    router.post('/getLocation', (req, res, next) => {
-        let bid = req.body.beaconID;
+    router.get('/beacons', (req, res, next) => {
+        db.query(`SELECT * FROM Beam.Beacons`, (err, result) => {
+            if(err) return res.json({ error: 'ERROR!!!!' });
+            res.json(result);
+        });
+    });
+    
+    router.get('/locations', (req, res, next) => {
+        db.query(`SELECT * FROM Beam.Locations`, (err, result) => {
+            if(err) return res.json({ error: 'ERROR!!!!' });
+            res.json(result);
+        });
+    });
+    
+    router.get('/location/:bid', (req, res, next) => {
+        let bid = req.params.beaconID;
         
         db.query(`
             SELECT
