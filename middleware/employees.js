@@ -24,20 +24,36 @@ module.exports = function(db) {
         });
     });
     
-    // router.post('/getEmployee', function(req, res) {
-    //     let data = req.body;
-    //     let query = [];
+    router.post('/getEmployee', function(req, res) {
+        let data = req.body;
+        let query = [];
         
-    //     if(data.FirstName) query.push(`FirstName like '%${data.FirstName}%'`);
-    //     if(data.LastName) query.push(`LastName like '%${data.LastName}%'`);
+        console.log(req.body);
         
-    //     db.query(`
-    //         SELECT * FROM Common_Private.HR_Employee
-    //         WHERE ${thaDee.firstName ? 'FirstName=' + thaDee.FirstName : ''}
-    //     `);
+        if(data.EmployeeID) query.push(`EmployeeID like ${db.escape('%' + data.EmployeeID + '%')}`);
+        if(data.FirstName) query.push(`FirstName like ${db.escape('%' + data.FirstName + '%')}`);
+        if(data.LastName) query.push(`LastName like ${db.escape('%' + data.LastName + '%')}`);
+        if(data.PhoneNumber) query.push(`WorkFromHomeStation like ${'%' + db.escape(data.PhoneNumber + '%')}`);
+        if(data.HireDate) query.push(`HireDate like ${db.escape('%' + data.HireDate + '%')}`);
         
-    //     res.json({ data: 'single employee' });
-    // });
+        if(data.CompanyID) query.push(`CompanyID=${db.escape(data.CompanyID)}`);
+        if(data.LocationID) query.push(`LocationID=${db.escape(data.LocationID)}`);
+        if(data.JobTitleID) query.push(`JobTitleID=${db.escape(data.JobTitle)}`);
+        if(data.PositionGroupID) query.push(`PositionGroupID=${db.escape(data.PositionGroupID)}`);
+        if(data.AgentTitleID) query.push(`AgentTitleID=${db.escape(data.AgentTitle)}`);
+        if(data.IsSalesSupport) query.push(`JobTitleTypeID=9`);
+        if(data.IsActive) query.push(`IsActive=1`);
+        let q = query.join(' AND ');
+        
+        console.log(q);
+        
+        db.query(`
+            SELECT * FROM Common_Private.HR_Employee
+            WHERE ${q}
+        `, function(err, result) {
+            res.json(result);
+        });
+    });
     
     return router;
 };

@@ -3,6 +3,8 @@ let express = require('express');
 let app = express();
 let initSocket = require('./socket');
 let mysql = require('mysql');
+let bodyParser = require('body-parser');
+let compression = require('compression');
 
 let db = mysql.createPool({
     host: 'rv-clt-dbhack01',
@@ -10,6 +12,9 @@ let db = mysql.createPool({
     password: 'hunter2',
     port: 3306
 });
+
+app.use(bodyParser.json());
+app.use(compression());
 
 app.set('port', (process.env.PORT || 3001));
 
