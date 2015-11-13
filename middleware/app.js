@@ -35,7 +35,7 @@ module.exports = (db) => {
                 NOW()
             )
         `, (err, result) => {
-            db.query(`SELECT id, locationID FROM Beam.UserLocationStats WHERE endTime IS NULL`, (err, rows) => {
+            db.query(`SELECT id, locationID FROM Beam.UserLocationStats WHERE endTime IS NULL AND employeeID=${db.escape(employeeID)}`, (err, rows) => {
                 res.json({
                     checkinID: result.lastInsertId,
                     pending: rows
