@@ -43,14 +43,15 @@ module.exports = function(db) {
         if(data.AgentTitleID) query.push(`AgentTitleID=${db.escape(data.AgentTitle)}`);
         if(data.IsSalesSupport) query.push(`JobTitleTypeID=9`);
         if(data.IsActive) query.push(`IsActive=1`);
-        let q = query.join(' AND ');
         
-        console.log(q);
-        
-        db.query(`
+        let q = `
             SELECT * FROM Common_Private.HR_Employee
-            WHERE ${q}
-        `, function(err, result) {
+            ${query.length? 'WHERE ' + query.join(' AND ') : ''}
+        `;
+        
+        //console.log(q);
+        
+        db.query(q, function(err, result) {
             res.json(result);
         });
     });

@@ -24,14 +24,13 @@ app.get('/favicon.ico', function(req, res) {
 });
 
 app.get('/health', function(req, res) {
-    res.json({ data: 'health endpoint' });
+    res.send('healthy!');
 });
 
 app.use('/employees', require('./middleware/employees')(db));
 app.use('/locations', require('./middleware/locations')(db));
 
-app.use('/checkInOut', require('./middleware/checkInOut'));
-app.use('/screenConnect', require('./middleware/screenConnect'));
+app.use('/app', require('./middleware/app')(db));
 
 let server = require('http').Server(app);
 initSocket(server);
