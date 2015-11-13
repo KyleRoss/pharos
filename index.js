@@ -2,16 +2,29 @@
 let express = require('express');
 let app = express();
 let initSocket = require('./socket');
+let mysql = require('mysql');
 
-app.set('port', (process.env.PORT || 3000));
+let db = mysql.createPool({
+    host: 'rv-clt-dbhack01',
+    user: 'hacker',
+    password: 'hunter2',
+    port: 3306
+});
+
+app.set('port', (process.env.PORT || 3001));
 
 // Ignore requests for favicons
 app.get('/favicon.ico', function(req, res) {
-  res.sendStatus(404);
+    res.sendStatus(404);
 });
 
-app.use('/findPerson', require('./middleware/findPerson'));
-app.use('/findRoom', require('./middleware/findRoom'));
+app.get('/health', function(req, res) {
+    res.json({ data: 'health endpoint' });
+});
+
+app.use('/employees', require('./middleware/employees')(db));
+app.use('/locations', require('./middleware/locations')(db));
+
 app.use('/checkInOut', require('./middleware/checkInOut'));
 app.use('/screenConnect', require('./middleware/screenConnect'));
 
