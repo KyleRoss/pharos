@@ -34,6 +34,29 @@ module.exports = (db) => {
         });
     });
     
+    router.post('/lastSeen', (req, res, next) => {
+        let locationID = req.body.locationID,
+            employeeID = req.body.employeeID;
+        
+        db.query(`
+            INSERT INTO Beam.UserLocationStats
+            (
+                employeeID,
+                locationID,
+                startTime,
+                type
+            )
+            VALUES (
+                ${db.escape(employeeID)},
+                ${db.escape(locationID)},
+                NOW(),
+                0
+            )
+        `, (err, result) => {
+            res.json(result.lastInsertId);
+        });
+    });
+    
     router.post('/checkin', (req, res, next) => {
         let locationID = req.body.locationID,
             employeeID = req.body.employeeID;
@@ -43,15 +66,17 @@ module.exports = (db) => {
             (
                 employeeID,
                 locationID,
-                startTime
+                startTime,
+                type
             )
             VALUES (
                 ${db.escape(employeeID)},
                 ${db.escape(locationID)},
-                NOW()
+                NOW(),
+                1
             )
         `, (err, result) => {
-            db.query(`SELECT id, locationID FROM Beam.UserLocationStats WHERE endTime IS NULL AND employeeID=${db.escape(employeeID)}`, (err, rows) => {
+            db.query(`SELECT id, locationID FROM Beam.UserLocationStats WHERE type=1 AND endTime IS NULL AND employeeID=${db.escape(employeeID)}`, (err, rows) => {
                 res.json({
                     checkinID: result.lastInsertId,
                     pending: rows

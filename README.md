@@ -21,6 +21,15 @@ Get the location of a beacon by its UUID.
 
 Returns Object
 
+#### `POST` /app/lastSeen
+Checkin a user to a given location.
+
+* `employeeID` - The ID of the employee who is checking in.
+* `locationID` - The ID of the location to checkin to.
+
+Returns Number (the ID of the row)
+
+
 #### `POST` /app/checkin
 Checkin a user to a given location.
 
