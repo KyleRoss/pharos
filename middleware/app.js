@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (db) => {
     let express = require('express'),
         router = express.Router();
@@ -55,4 +57,6 @@ module.exports = (db) => {
             res.json(true);
         });
     });
+    
+    return router;
 };
