@@ -49,5 +49,22 @@ module.exports = (db) => {
         });
     });
     
+    router.get('/getBeaconLocation/:id', (req, res, next) => {
+        let beaconId = req.params.id;
+        
+        db.query(`
+            SELECT
+                l.id AS locationID,
+                l.name AS locationName,
+                l.description AS locationDescription
+            FROM Beam.Locations l
+            LEFT JOIN Beam.Beacons AS b ON l.id = b.locationID
+            WHERE b.id=${db.escape(beaconId)}
+        `, (err, result) => {
+            if(err) return res.json({ error: 'ERROR!!!!' });
+            res.json(result);
+        });
+    });
+    
     return router;
 };

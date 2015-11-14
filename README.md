@@ -97,6 +97,11 @@ Get a list of users in a given location
 
 Returns [Object]
 
+#### 'GET' /web/getBeaconLocation/:id
+Get the location data for a beacon
+
+Returns [Object]
+
 ### Web Socket Events
 #### get dashboard data
 Emit this event to begin receiving live dashboard data
