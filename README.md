@@ -87,6 +87,9 @@ Get a list of departments from the database.
 
 Returns [Object]
 
+---
+
+### Web Endpoints
 #### `GET` /web/beaconsInLocation/:id
 Get a list of beacons from within a given location
 
@@ -101,6 +104,8 @@ Returns [Object]
 Get the location data for a beacon
 
 Returns [Object]
+
+---
 
 ### Web Socket Events
 #### get dashboard data
