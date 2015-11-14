@@ -86,3 +86,13 @@ Returns [Object]
 Get a list of departments from the database.
 
 Returns [Object]
+
+#### `GET` /web/beaconsInLocation/:id
+Get a list of beacons from within a given location
+
+Returns [Object]
+
+#### `GET` /web/usersInLocation/:id
+Get a list of users in a given location
+
+Returns [Object]

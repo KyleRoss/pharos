@@ -29,6 +29,7 @@ app.get('/health', function(req, res) {
 
 app.use('/employees', require('./middleware/employees')(db));
 app.use('/locations', require('./middleware/locations')(db));
+app.use('/web', require('./middleware/web')(db));
 
 app.use('/app', require('./middleware/app')(db));
 
