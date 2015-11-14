@@ -34,7 +34,7 @@ app.use('/web', require('./middleware/web')(db));
 app.use('/app', require('./middleware/app')(db));
 
 let server = require('http').Server(app);
-initSocket(server);
+initSocket(server, db);
 
 server.listen(app.get('port'), function() {
     console.log('Server started on port ' + app.get('port'));

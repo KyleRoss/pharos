@@ -96,3 +96,7 @@ Returns [Object]
 Get a list of users in a given location
 
 Returns [Object]
+
+### Web Socket Events
+get dashboard data - Emit this event to begin receiving live dashboard data
+dashboard data loaded - Listen for this event. It will return the live data
