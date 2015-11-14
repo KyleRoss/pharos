@@ -4,7 +4,7 @@ module.exports = function(server, db) {
     let io = require('socket.io').listen(server);
     
     io.on('connection', function(socket){
-        socket.on('get dashboard data', function(data){
+        socket.on('get dashboard data', function(){
             function updateInterval() {
                 db.query(`
                     SELECT 

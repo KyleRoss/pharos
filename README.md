@@ -103,6 +103,9 @@ Returns [Object]
 #### 'GET' /web/getBeaconLocation/:id
 Get the location data for a beacon
 
+#### 'GET' /web/getDashboardData
+Get the dashboard data
+
 Returns [Object]
 
 ---
