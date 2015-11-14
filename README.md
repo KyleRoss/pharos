@@ -112,4 +112,4 @@ Returns [Object]
 Emit this event to begin receiving live dashboard data
 
 #### dashboard data loaded
-dashboard data loaded - Listen for this event. It will return the live data
+Listen for this event. It will return the live data
